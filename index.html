@@ -75,10 +75,10 @@
             for (var i = 0; i < items.length; i++){
                 list2 += "<div style='padding-top: 2vh;padding-left: 5vh;padding-right: 5vh;' class= 'd-flex justify-content-center undone "+ (items[i].checked1?"done":"")+"'>";
                 list2 +=  "<p>"+items[i].value+" "+"</p>";
-                list2 += "<p style='padding-left: 2vw;'><span style='color: black'>Deadline</span> "+ items[i].deadline +"</p>";
-                list2 += "<div style='padding-left: 5vw' >"
+                list2 += "<p style='padding-left: 1vw;'><span style='color: black'>Deadline</span> "+ items[i].deadline +"</p>";
+                list2 += "<div style='padding-left: 1vw' >"
                 list2 += "<button class='done1 "+ (items[i].checked1?"yes":"")+"' onclick='checkitem("+i+")'>Done</button></div>";
-                list2 += "<div style='padding-left: 5vw' >"
+                list2 += "<div style='padding-left: 1vw' >"
                 list2 += "<button class='del' onclick='delitem("+i+")'>Delete</button></div></div>";
             }
             document.getElementById('list1').innerHTML = list2;
