@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Titillium Web">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="style1.css" rel="stylesheet">
+    <title>Get It Done</title>
+  </head>
+  <body onload="myFunction()" class="wholeback">
+    <div class="container text-center" style="padding-top: 20vh;">
+    <div class="back">
+        <h1>Get It Done</h1>
+        <div class="justify-content-center">
+        <input type="text" id="todo" placeholder="Task" style="width: 50vw;">
+        <div style="padding-top: 2vh;">
+            Deadline <input type="datetime-local" id="deadline" name="deadline" placeholder="deadline" style="width: 50vw;"> 
+    </div>
+        <div style="padding-top: 2vh;">
+        <button id="submit1" type="submit" onclick="additem();return false">+</button>
+    </div>
+    </div>
+        <div id="list1" style="padding-top: 5vh;">
+            
+        </div>
+    </div>
+    </div>
+    <!-- Optional JavaScript; choose one of the two! -->
+
+    <!-- Option 1: Bootstrap Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script>
+        var items = JSON.parse(localStorage.getItem('todo-list')) || [];
+        function myFunction(){
+            listItems();
+        }
+        function additem(){
+            var input = document.getElementById('todo');
+            var input_d = document.getElementById('deadline');
+            var item = input.value;
+            var item_1 = input_d.value;
+            if(item == "" || item.trim() == "")
+            {
+                alert("Please enter correct input")
+            }
+            else{
+                items.push({
+                    id: (new Date()).toLocaleDateString("en-US"),
+                    value: item,
+                    checked1: false,
+                    deadline: item_1
+                })
+            }
+            localStorage.setItem('todo-list', JSON.stringify(items));
+            listItems();
+            input.value = "";
+            input_d.value = "";
+        }
+        function delitem(index){
+            items.splice(index,1);
+            localStorage.setItem('todo-list', JSON.stringify(items));
+            listItems();
+        }
+        function checkitem(index){
+            items[index].checked1 = !items[index].checked1;
+            localStorage.setItem('todo-list', JSON.stringify(items));
+            listItems();
+        }
+        function listItems(){
+            var list2 = "";
+            for (var i = 0; i < items.length; i++){
+                list2 += "<div style='padding-top: 2vh;padding-left: 5vh;padding-right: 5vh;' class= 'd-flex justify-content-center undone "+ (items[i].checked1?"done":"")+"'>";
+                list2 +=  "<p>"+items[i].value+" "+"</p>";
+                list2 += "<p style='padding-left: 2vw;'><span style='color: black'>Deadline</span> "+ items[i].deadline +"</p>";
+                list2 += "<div style='padding-left: 5vw' >"
+                list2 += "<button class='done1 "+ (items[i].checked1?"yes":"")+"' onclick='checkitem("+i+")'>Done</button></div>";
+                list2 += "<div style='padding-left: 5vw' >"
+                list2 += "<button class='del' onclick='delitem("+i+")'>Delete</button></div></div>";
+            }
+            document.getElementById('list1').innerHTML = list2;
+            
+        }
+    </script>
+  </body>
+</html>
